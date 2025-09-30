@@ -38,11 +38,20 @@ jobs:
       - name: Bouw de applicatie
         run: dotnet build --configuration Release
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GroceryApp-build
+          path: |
+            **/bin/Release/
+            !**/*.pdb   # (optioneel: exclude symbol files)
+
       - name: Voer unit tests uit en genereer resultaten
         run: dotnet test --configuration Release --no-restore --no-build --verbosity normal --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
 
-      - name: Upload testresultaten artifact
+      - name: Upload testresultaten
+        if: always()   # ook uploaden als tests falen
         uses: actions/upload-artifact@v4
         with:
-          name: unit-test-results
+          name: TestResults
           path: ./TestResults
