@@ -72,6 +72,7 @@ namespace Grocery.Core.Services
                     );
                 })
                 .Take(topX)
+                .OrderByDescending(g => g.NrOfSells)
                 .ToList();
 
             for (int i = 0; i < bestSellingProducts.Count; i++)
@@ -79,7 +80,7 @@ namespace Grocery.Core.Services
                 bestSellingProducts[i].ranking = i + 1;
             }
 
-            bestSellingProducts.OrderByDescending(x => x.ranking);
+            //bestSellingProducts.OrderByDescending(x => x.NrOfSells);
 
             return bestSellingProducts;
         }
