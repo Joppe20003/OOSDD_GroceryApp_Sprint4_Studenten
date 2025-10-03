@@ -14,7 +14,7 @@ namespace TestCore
         private readonly Mock<IClientRepository> _clientRepository = new();
         private readonly Mock<IGroceryListItemsRepository> _grocyListItemsRepository = new();
         private readonly Mock<IGroceryListRepository> _grocyListRepository = new();
-        private readonly Mock<IProductRepository> _productRepository = new();
+        private readonly Mock<IProductRepository> _productsRepository = new();
 
         [SetUp]
         public void Setup()
@@ -175,13 +175,13 @@ namespace TestCore
             _grocyListRepository.Setup(x => x.GetAll()).Returns(groceryLists);
             _grocyListItemsRepository.Setup(x => x.GetAllOnGroceryListId(It.IsAny<int>())).Returns<int>(id => groceryListItems.Where(i => i.GroceryListId == id).ToList());
             _clientRepository.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(id => clients.FirstOrDefault(c => c.Id == id));
-            _productRepository.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(id => products.FirstOrDefault(p => p.Id == id));
+            _productsRepository.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(id => products.FirstOrDefault(p => p.Id == id));
 
             var service = new BoughtProductsService(
                 _grocyListItemsRepository.Object,
                 _grocyListRepository.Object,
                 _clientRepository.Object,
-                _productRepository.Object
+                _productsRepository.Object
             );
 
             var result = service.Get(1);
@@ -226,13 +226,13 @@ namespace TestCore
             _grocyListRepository.Setup(x => x.GetAll()).Returns(groceryLists);
             _grocyListItemsRepository.Setup(x => x.GetAllOnGroceryListId(It.IsAny<int>())).Returns<int>(id => groceryListItems.Where(i => i.GroceryListId == id).ToList());
             _clientRepository.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(id => clients.FirstOrDefault(c => c.Id == id));
-            _productRepository.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(id => products.FirstOrDefault(p => p.Id == id));
+            _productsRepository.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(id => products.FirstOrDefault(p => p.Id == id));
 
             var service = new BoughtProductsService(
                 _grocyListItemsRepository.Object,
                 _grocyListRepository.Object,
                 _clientRepository.Object,
-                _productRepository.Object
+                _productsRepository.Object
             );
 
             var result = service.Get(4);
