@@ -16,6 +16,7 @@ namespace Grocery.Core.Models
             Stock=stock;
             NrOfSells=nrOfSells;
             Ranking=ranking;
+            Name = name;
         }
     }
 }
